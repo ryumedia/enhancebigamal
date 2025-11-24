@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Amal - Donasi Online</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        .mobile-container {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: #f9fafb;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            padding-bottom: 80px;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Transisi halus untuk perpindahan halaman */
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity 0.2s ease;
+        }
+        .fade-enter-from, .fade-leave-to {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- CONTAINER UTAMA DENGAN STATE ALPINE.JS -->
+    <!-- activePage: 'home', 'info', 'aktual', 'amal', 'akun', 'grup', 'detail_kegiatan', 'detail_berita' (BARU) -->
+    <!-- infoTab: 'berita', 'kegiatan' -->
+    <!-- grupFilter: 'terdekat', 'terbaru' -->
+    <div class="mobile-container relative bg-white" x-data="{ activePage: 'amal', infoTab: 'berita', grupFilter: 'terdekat' }">
+        
+        <!-- ========================================= -->
+        <!-- 1. HALAMAN AMAL (DONASI) -->
+        <!-- ========================================= -->
+        <div x-show="activePage === 'amal'" x-transition.opacity.duration.200ms>
+            <!-- Header Amal -->
+            <header class="sticky top-0 z-40 bg-white border-b border-gray-100 shadow-sm">
+                <div class="flex items-center justify-between px-4 py-3">
+                    <div class="flex-shrink-0">
+                        <!-- Ikon Hati / Logo (LINK KE CMS ADMIN) -->
+                        <a href="index.html" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors" title="Kembali ke Admin CMS">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-green-600">
+                                <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.75 3c1.995 0 3.804 1.005 4.897 2.553C13.804 4.005 15.613 3 17.608 3c3.036 0 5.5 2.322 5.5 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.748 0l-.003-.001z" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="flex-1 mx-3">
+                        <div class="relative">
+                            <input type="text" placeholder="Cari program..." class="w-full bg-gray-100 text-gray-700 text-sm rounded-full py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-green-500 focus:bg-white transition-colors">
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="text-green-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </button>
+                </div>
+                <!-- Tabs Amal -->
+                <div class="flex border-b border-gray-200">
+                    <button class="flex-1 py-3 text-sm font-semibold text-gray-800 border-b-2 border-green-500 focus:outline-none">Rekomendasi</button>
+                    <button class="flex-1 py-3 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none">Program</button>
+                    <button class="flex-1 py-3 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none">Lembaga</button>
+                </div>
+            </header>
+
+            <!-- Konten List Amal -->
+            <main>
+                <!-- Card 1 -->
+                <div class="bg-white mb-2 border-b border-gray-100 pb-4">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Masjid+Render" alt="Masjid" class="w-full h-56 object-cover">
+                        <div class="absolute top-4 left-0 bg-red-500 text-white px-2 py-1 rounded-r-md shadow-md flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1"><path d="M7.493 18.75c-.425 0-.82-.236-.975-.632A7.48 7.48 0 016 15.375c0-1.75.599-3.358 1.602-4.634.151-.192.373-.309.6-.397.473-.183.89-.514 1.212-.924a9.042 9.042 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75 2.25 2.25 0 012.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H14.23c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M14.233 18.75h.002z" /></svg>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-white p-1 rounded-full shadow-md w-10 h-10 flex items-center justify-center">
+                            <div class="text-green-600 font-bold text-xs">DT</div>
+                        </div>
+                        <div class="absolute -bottom-6 left-4 right-4 bg-white rounded-lg shadow-lg p-3 text-center border border-gray-100">
+                            <h3 class="text-gray-800 font-bold text-lg leading-tight">Wakaf Pengembangan Masjid At Taqwa</h3>
+                            <p class="text-gray-500 text-xs mt-1 font-medium">Komplek Margahayu Kencana, Bandung</p>
+                        </div>
+                    </div>
+                    <div class="px-4 mt-10">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded">Wakaf</span>
+                            <span class="text-gray-700 text-xs uppercase font-bold truncate">WAKAF PEMBANGUNAN MASJID...</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-1.5 mb-2">
+                            <div class="bg-green-500 h-1.5 rounded-full" style="width: 12%"></div>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <div><p class="text-green-600 font-bold text-lg">Rp 3.225.000</p></div>
+                            <div class="text-right"><p class="text-xs text-gray-400">Kebutuhan: <span class="font-medium text-gray-600">Rp 500.000.000</span></p></div>
+                        </div>
+                        <div class="flex justify-end mt-1"><p class="text-xs text-gray-400">Tanpa batas waktu</p></div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white mb-2 border-b border-gray-100 pb-4 mt-4">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400/1e3a8a/ffffff?text=Kapal+Laut" alt="Global Sumud" class="w-full h-56 object-cover">
+                        <div class="absolute top-4 left-0 bg-red-500 text-white px-2 py-1 rounded-r-md shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M7.493 18.75c-.425 0-.82-.236-.975-.632A7.48 7.48 0 016 15.375c0-1.75.599-3.358 1.602-4.634.151-.192.373-.309.6-.397.473-.183.89-.514 1.212-.924a9.042 9.042 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75 2.25 2.25 0 012.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H14.23c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M14.233 18.75h.002z" /></svg>
+                        </div>
+                        <div class="absolute top-4 left-1/2 transform -translate-x-1/2 bg-white/90 px-3 py-1 rounded-full flex items-center gap-2 shadow-sm">
+                            <span class="text-[10px] font-bold text-green-600">bigamal</span>
+                            <span class="text-[10px] text-gray-400">|</span>
+                            <span class="text-[10px] font-bold text-blue-600">dtpeduli</span>
+                        </div>
+                        <div class="absolute top-14 right-4 bg-white p-1 rounded-full shadow-md w-10 h-10 flex items-center justify-center">
+                            <div class="text-blue-600 font-bold text-xs">DP</div>
+                        </div>
+                        <div class="absolute bottom-4 right-4 text-right max-w-[60%]">
+                            <h3 class="text-white font-bold text-lg leading-tight shadow-sm drop-shadow-md">Tak Semua Bisa Berlayar,<br>Tapi Semua Bisa Menggerakkan Kapal Ini</h3>
+                        </div>
+                        <div class="absolute bottom-4 left-4">
+                            <h4 class="text-white font-bold text-md drop-shadow-md">Global Sumud<br>Flotilla</h4>
+                            <button class="mt-2 bg-orange-500 text-white text-[10px] font-bold px-3 py-1 rounded shadow-sm">Bantu Sekarang</button>
+                        </div>
+                    </div>
+                    <div class="px-4 mt-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded">Infaq</span>
+                            <span class="text-gray-700 text-xs font-medium truncate">Misi Kemanusiaan Menembus Blokade Gaza...</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-1.5 mb-2">
+                            <div class="bg-green-500 h-1.5 rounded-full" style="width: 5%"></div>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <div><p class="text-green-600 font-bold text-lg">Rp 1.155.000</p></div>
+                            <div class="text-right"><p class="text-xs text-gray-400">Kebutuhan: <span class="font-medium text-gray-600">Rp 35.000.000</span></p></div>
+                        </div>
+                        <div class="flex justify-end mt-1"><p class="text-xs text-gray-400">Berakhir dalam waktu 6 hari</p></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- 2. HALAMAN INFO -->
+        <!-- ========================================= -->
+        <div x-show="activePage === 'info'" x-transition.opacity.duration.200ms>
+            
+            <!-- Header Info (Hanya 2 Tab: Berita & Kegiatan) -->
+            <header class="sticky top-0 z-40 bg-white border-b border-gray-100 shadow-sm">
+                <div class="flex items-center justify-between px-4 py-3">
+                    <div class="flex-shrink-0">
+                        <!-- Logo (LINK KE CMS ADMIN) -->
+                        <a href="cms_big_amal.html" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors" title="Kembali ke Admin CMS">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-green-600">
+                                <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.75 3c1.995 0 3.804 1.005 4.897 2.553C13.804 4.005 15.613 3 17.608 3c3.036 0 5.5 2.322 5.5 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.748 0l-.003-.001z" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="flex-1 mx-3">
+                        <!-- Pencarian -->
+                        <div class="relative">
+                            <input type="text" placeholder="Cari info..." class="w-full bg-gray-100 text-gray-700 text-sm rounded-full py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-green-500 focus:bg-white transition-colors">
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="text-green-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="flex border-b border-gray-200">
+                    <button 
+                        @click="infoTab = 'berita'"
+                        class="flex-1 py-3 text-sm font-semibold focus:outline-none transition-colors"
+                        :class="infoTab === 'berita' ? 'text-gray-800 border-b-2 border-green-500' : 'text-gray-500 hover:text-gray-700'">
+                        Berita
+                    </button>
+                    <button 
+                        @click="infoTab = 'kegiatan'"
+                        class="flex-1 py-3 text-sm font-semibold focus:outline-none transition-colors"
+                        :class="infoTab === 'kegiatan' ? 'text-gray-800 border-b-2 border-green-500' : 'text-gray-500 hover:text-gray-700'">
+                        Kegiatan
+                    </button>
+                </div>
+            </header>
+
+            <!-- Konten Info -->
+            <main>
+                
+                <!-- Sub-halaman Berita -->
+                <div x-show="infoTab === 'berita'" x-transition.opacity>
+                    
+                    <!-- CARD BERITA TIPE 1 (Bisa Donasi - Berita Duka) -->
+                    <div class="bg-white mb-2 border-b border-gray-100 pb-4">
+                        <div class="relative">
+                            <!-- Gambar -->
+                            <img src="https://placehold.co/600x400/f3f4f6/64748b?text=Gempa+Bumi" alt="Berita Duka" class="w-full h-56 object-cover">
+                            
+                            <!-- Badge Kiri Atas (Icon Newspaper/Heart) -->
+                            <div class="absolute top-4 left-0 bg-gray-800 text-white px-2 py-1 rounded-r-md shadow-md flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
+                                    <path fill-rule="evenodd" d="M4.125 3C3.089 3 2.25 3.84 2.25 4.875V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V4.875C21.75 3.839 20.91 3 19.875 3H4.125zM12 9.75a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H12zm-.75-2.25a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5H12a.75.75 0 01-.75-.75zM6 12.75a.75.75 0 000 1.5h7.5a.75.75 0 000-1.5H6zm-.75 3.75a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5H6a.75.75 0 01-.75-.75zM6 6.75a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h3a.75.75 0 00.75-.75v-3A.75.75 0 009 6.75H6z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+
+                            <!-- Title Overlay (Box Putih) -->
+                            <div class="absolute -bottom-6 left-4 right-4 bg-white rounded-lg shadow-lg p-3 text-center border border-gray-100">
+                                <h3 class="text-gray-800 font-bold text-lg leading-tight">Innalillahi, Gempa Susulan Kembali Mengguncang Cianjur</h3>
+                                <p class="text-gray-500 text-xs mt-1 font-medium">Desa Cijedil, Kec. Cugenang</p>
+                            </div>
+                        </div>
+
+                        <!-- Konten Bawah -->
+                        <div class="px-4 mt-10">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="bg-gray-700 text-white text-xs font-bold px-2 py-1 rounded">Berita Duka</span>
+                                <span class="text-gray-500 text-xs">Diposting 3 jam yang lalu</span>
+                            </div>
+
+                            <!-- Progress Bar (Karena Bisa Donasi) -->
+                            <div class="w-full bg-gray-200 rounded-full h-1.5 mb-2">
+                                <div class="bg-green-500 h-1.5 rounded-full" style="width: 45%"></div>
+                            </div>
+
+                            <!-- Stats Donasi -->
+                            <div class="flex justify-between items-end mb-3">
+                                <div><p class="text-green-600 font-bold text-lg">Rp 50.450.000</p></div>
+                                <div class="text-right"><p class="text-xs text-gray-400">Terkumpul dari donasi darurat</p></div>
+                            </div>
+                            
+                            <!-- Tombol Donasi (DIBUAT AKTIF) -->
+                            <button 
+                                @click="activePage = 'detail_berita'"
+                                class="w-full bg-orange-500 text-white py-2 rounded-md text-sm font-bold shadow-sm hover:bg-orange-600 transition-colors">
+                                Kirim Bantuan Darurat
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- CARD BERITA TIPE 2 (Tidak Bisa Donasi - Laporan) -->
+                    <div class="bg-white mb-2 border-b border-gray-100 pb-4 mt-4">
+                        <div class="relative">
+                            <!-- Gambar -->
+                            <img src="https://placehold.co/600x400/e0f2fe/64748b?text=Distribusi+Bantuan" alt="Laporan" class="w-full h-56 object-cover">
+                            
+                            <!-- Badge Kiri Atas -->
+                            <div class="absolute top-4 left-0 bg-blue-600 text-white px-2 py-1 rounded-r-md shadow-md flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-1">
+                                    <path d="M19.5 22.5a3 3 0 003-3v-8.174a3 3 0 00-3-3H4.5a3 3 0 00-3 3V19.5a3 3 0 003 3h15zM1.5 8.326A3 3 0 014.5 5.326h15a3 3 0 013 3v1.5a3 3 0 01-3 3h-15a3 3 0 01-3-3v-1.5z" />
+                                </svg>
+                            </div>
+
+                            <!-- Title Overlay -->
+                            <div class="absolute -bottom-6 left-4 right-4 bg-white rounded-lg shadow-lg p-3 text-center border border-gray-100">
+                                <h3 class="text-gray-800 font-bold text-lg leading-tight">Laporan Penyaluran Bantuan Logistik Tahap 3</h3>
+                                <p class="text-gray-500 text-xs mt-1 font-medium">Oleh Tim Relawan Big Amal</p>
+                            </div>
+                        </div>
+
+                        <!-- Konten Bawah -->
+                        <div class="px-4 mt-10">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-1 rounded">Laporan</span>
+                                <span class="text-gray-500 text-xs">Diposting 1 hari yang lalu</span>
+                            </div>
+
+                            <!-- TIDAK ADA PROGRESS BAR DI SINI -->
+                            
+                            <!-- Deskripsi Singkat -->
+                            <p class="text-sm text-gray-600 mb-4 leading-relaxed">
+                                Alhamdulillah, amanah donatur telah kami salurkan berupa 500 paket sembako dan perlengkapan bayi untuk pengungsi di posko utama...
+                            </p>
+                            
+                            <!-- Tombol Baca Selengkapnya (Bukan Donasi) -->
+                            <button class="w-full border border-blue-600 text-blue-600 py-2 rounded-md text-sm font-bold hover:bg-blue-50 transition-colors">
+                                Baca Laporan Lengkap
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Sub-halaman Kegiatan -->
+                <div x-show="infoTab === 'kegiatan'" x-transition.opacity>
+                    <!-- Item Kegiatan 1 -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden mb-4">
+                        <img src="https://placehold.co/600x200/f3f4f6/64748b?text=Kegiatan" class="w-full h-32 object-cover" alt="Banner">
+                        <div class="p-3">
+                            <span class="text-[10px] bg-orange-100 text-orange-600 px-2 py-0.5 rounded-full font-bold">Event</span>
+                            <h4 class="text-md font-bold text-gray-800 mt-2">Webinar: Keutamaan Sedekah di Bulan Rajab</h4>
+                            <p class="text-xs text-gray-500 mt-1">Bersama Ustadz H. Fulan, Lc. M.A.</p>
+                            <div class="flex items-center gap-2 mt-3 text-xs text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-gray-400"><path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4h.25V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" /></svg>
+                                <span>Sabtu, 25 Nov 2025</span>
+                            </div>
+                            <!-- Tombol Daftar Sekarang (DIBUAT AKTIF) -->
+                            <button 
+                                @click="activePage = 'detail_kegiatan'"
+                                class="w-full mt-3 bg-green-50 text-green-700 py-2 rounded text-xs font-bold hover:bg-green-100 transition-colors">
+                                Daftar Sekarang
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- 3. HALAMAN AKUN (PROFIL) -->
+        <!-- ========================================= -->
+        <div x-show="activePage === 'akun'" x-transition.opacity.duration.200ms>
+            <!-- Header Profile -->
+            <div class="bg-white p-6 flex flex-col items-center border-b border-gray-100">
+                <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-gray-100 mb-3">
+                    <img src="https://placehold.co/200x200/e2e8f0/16a34a?text=AG" alt="Profile" class="w-full h-full object-cover">
+                </div>
+                <h2 class="text-lg font-bold text-gray-800">Achmad Ghozali</h2>
+                <div class="flex items-center text-sm text-gray-500 mt-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-1 text-gray-400"><path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z" /><path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z" /></svg>
+                    ghozaliizumi@gmail.com
+                </div>
+                <div class="flex items-center text-sm text-gray-500 mt-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-1 text-gray-400"><path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.43A13.022 13.022 0 012.43 8.326 13.019 13.019 0 012 5V3.5z" clip-rule="evenodd" /></svg>
+                    085224131324
+                </div>
+            </div>
+
+            <!-- Menu List Container -->
+            <div class="p-4">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <!-- Profil -->
+                    <button class="w-full flex items-center justify-between p-4 border-b border-gray-50 hover:bg-gray-50 transition-colors group">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center mr-3 text-green-600 group-hover:bg-green-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700">Profil</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-gray-400"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                    </button>
+
+                    <!-- Grup (BARU - LINK KE HALAMAN GRUP) -->
+                    <button @click="activePage = 'grup'" class="w-full flex items-center justify-between p-4 border-b border-gray-50 hover:bg-gray-50 transition-colors group">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center mr-3 text-green-600 group-hover:bg-green-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" /></svg>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700">Grup</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-gray-400"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                    </button>
+                    
+                    <!-- QR Code -->
+                    <button class="w-full flex items-center justify-between p-4 border-b border-gray-50 hover:bg-gray-50 transition-colors group">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center mr-3 text-green-600 group-hover:bg-green-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" /><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75zM6.75 16.5h.75v.75h-.75v-.75zM16.5 6.75h.75v.75h-.75v-.75zM13.5 13.5h.75v.75h-.75v-.75zM13.5 19.5h.75v.75h-.75v-.75zM19.5 13.5h.75v.75h-.75v-.75zM19.5 19.5h.75v.75h-.75v-.75zM16.5 16.5h.75v.75h-.75v-.75z" /></svg>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700">QR Code</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-gray-400"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                    </button>
+
+                    <!-- Riwayat Amal -->
+                    <button class="w-full flex items-center justify-between p-4 border-b border-gray-50 hover:bg-gray-50 transition-colors group">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center mr-3 text-green-600 group-hover:bg-green-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700">Riwayat Amal</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-gray-400"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                    </button>
+
+                    <!-- Pengaturan -->
+                    <button class="w-full flex items-center justify-between p-4 border-b border-gray-50 hover:bg-gray-50 transition-colors group">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center mr-3 text-green-600 group-hover:bg-green-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.795l-.75-1.3m-7.5-12.99l-.75-1.3m11.49 9.642l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.513M12.002 12l-3.75 6.495" /></svg>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700">Pengaturan</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-gray-400"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                    </button>
+
+                    <!-- Aktifitas Doa -->
+                    <button class="w-full flex items-center justify-between p-4 border-b border-gray-50 hover:bg-gray-50 transition-colors group">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center mr-3 text-green-600 group-hover:bg-green-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700">Aktifitas Doa</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-gray-400"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                    </button>
+
+                    <!-- Notifikasi -->
+                    <button class="w-full flex items-center justify-between p-4 border-b border-gray-50 hover:bg-gray-50 transition-colors group">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center mr-3 text-green-600 group-hover:bg-green-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" /></svg>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700">Notifikasi</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-gray-400"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                    </button>
+
+                    <!-- Bagikan Aplikasi -->
+                    <button class="w-full flex items-center justify-between p-4 border-b border-gray-50 hover:bg-gray-50 transition-colors group">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center mr-3 text-green-600 group-hover:bg-green-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" /></svg>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700">Bagikan Aplikasi</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-gray-400"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                    </button>
+
+                    <!-- Logout -->
+                    <button class="w-full flex items-center justify-between p-4 hover:bg-red-50 transition-colors group">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center mr-3 text-green-600 group-hover:bg-red-100 group-hover:text-red-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" /></svg>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700 group-hover:text-red-600">Logout</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-gray-400 group-hover:text-red-400"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                    </button>
+                </div>
+
+                <!-- Version Info -->
+                <div class="text-center mt-6 mb-4">
+                    <p class="text-xs text-gray-400">BigAmal v2.0.0</p>
+                    <p class="text-[10px] text-gray-300">Platform Crowdfunding untuk berbagi kebaikan.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- 4. HALAMAN LIST GRUP (BARU) -->
+        <!-- ========================================= -->
+        <div x-show="activePage === 'grup'" x-transition.opacity.duration.200ms>
+            <!-- Header Grup -->
+            <header class="sticky top-0 z-40 bg-white border-b border-gray-100 shadow-sm">
+                <div class="flex items-center px-4 py-3">
+                    <button @click="activePage = 'akun'" class="text-gray-600 mr-4 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                        </svg>
+                    </button>
+                    <h1 class="text-lg font-bold text-gray-800 flex-1">Grup Kebaikan</h1>
+                </div>
+            </header>
+
+            <main class="p-4">
+                
+                <!-- Status Keanggotaan -->
+                <div class="bg-green-50 border border-green-100 rounded-lg p-3 mb-4">
+                    <p class="text-sm text-green-800 font-medium">Status Keanggotaan:</p>
+                    <p class="text-xs text-green-600 mt-1">Anda Tegabung dalam Grup Masjid Al Ikhlas</p>
+                </div>
+
+                <!-- Filter -->
+                <div class="flex space-x-3 mb-6">
+                    <button 
+                        @click="grupFilter = 'terdekat'"
+                        class="flex-1 py-2 px-4 rounded-full text-sm font-medium border transition-colors focus:outline-none"
+                        :class="grupFilter === 'terdekat' ? 'bg-green-600 text-white border-green-600' : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-50'">
+                        Terdekat
+                    </button>
+                    <button 
+                        @click="grupFilter = 'terbaru'"
+                        class="flex-1 py-2 px-4 rounded-full text-sm font-medium border transition-colors focus:outline-none"
+                        :class="grupFilter === 'terbaru' ? 'bg-green-600 text-white border-green-600' : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-50'">
+                        Terbaru
+                    </button>
+                </div>
+
+                <!-- List Grup -->
+                <div class="space-y-3">
+                    
+                    <!-- Item 1 -->
+                    <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 mr-4 flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.75 3c1.995 0 3.804 1.005 4.897 2.553C13.804 4.005 15.613 3 17.608 3c3.036 0 5.5 2.322 5.5 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.748 0l-.003-.001z" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-gray-800">Masjid Al-Ikhlas</h4>
+                            <p class="text-xs text-gray-500 flex items-start mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3 mr-1 mt-0.5 text-gray-400 flex-shrink-0"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.006.003.003.001a.75.75 0 01-.01-.003zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /></svg>
+                                <span>Jl. Jakarta No. 229 Kel. Kacapiring Kec. Batununggal, Kota Bandung • 0.5 km</span>
+                            </p>
+                        </div>
+                        <div class="flex flex-col items-end justify-center ml-2">
+                            <span class="text-xs font-bold text-gray-600 bg-gray-100 px-2 py-1 rounded-full mb-1">120 Anggota</span>
+                            <button class="text-green-600 text-xs font-semibold border border-green-600 rounded px-2 py-1 hover:bg-green-50">Kontak Admin</button>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 mr-4 flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.75 3c1.995 0 3.804 1.005 4.897 2.553C13.804 4.005 15.613 3 17.608 3c3.036 0 5.5 2.322 5.5 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.748 0l-.003-.001z" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-gray-800">Musholla At-Taufiq</h4>
+                            <p class="text-xs text-gray-500 flex items-start mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3 mr-1 mt-0.5 text-gray-400 flex-shrink-0"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.006.003.003.001a.75.75 0 01-.01-.003zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /></svg>
+                                <span>Jl. Gatot Subroto No. 45, Kec. Cimahi Tengah, Kota Cimahi • 2.3 km</span>
+                            </p>
+                        </div>
+                        <div class="flex flex-col items-end justify-center ml-2">
+                            <span class="text-xs font-bold text-gray-600 bg-gray-100 px-2 py-1 rounded-full mb-1">45 Anggota</span>
+                            <button class="text-green-600 text-xs font-semibold border border-green-600 rounded px-2 py-1 hover:bg-green-50">Kontak Admin</button>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 mr-4 flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.75 3c1.995 0 3.804 1.005 4.897 2.553C13.804 4.005 15.613 3 17.608 3c3.036 0 5.5 2.322 5.5 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.748 0l-.003-.001z" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-gray-800">Masjid Raya Bandung</h4>
+                            <p class="text-xs text-gray-500 flex items-start mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3 mr-1 mt-0.5 text-gray-400 flex-shrink-0"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.006.003.003.001a.75.75 0 01-.01-.003zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /></svg>
+                                <span>Jl. Dalem Kaum No. 14, Kec. Regol, Kota Bandung • 5.0 km</span>
+                            </p>
+                        </div>
+                        <div class="flex flex-col items-end justify-center ml-2">
+                            <span class="text-xs font-bold text-gray-600 bg-gray-100 px-2 py-1 rounded-full mb-1">500 Anggota</span>
+                            <button class="text-green-600 text-xs font-semibold border border-green-600 rounded px-2 py-1 hover:bg-green-50">Kontak Admin</button>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- 5. HALAMAN DETAIL KEGIATAN (BARU) -->
+        <!-- ========================================= -->
+        <div x-show="activePage === 'detail_kegiatan'" x-transition.opacity.duration.200ms>
+            <!-- Header Detail -->
+            <header class="sticky top-0 z-40 bg-white border-b border-gray-100 shadow-sm">
+                <div class="flex items-center px-4 py-3">
+                    <button @click="activePage = 'info'; infoTab = 'kegiatan'" class="text-gray-600 mr-4 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                        </svg>
+                    </button>
+                    <h1 class="text-lg font-bold text-gray-800 flex-1">Detail Kegiatan</h1>
+                </div>
+            </header>
+
+            <main>
+                <!-- Banner -->
+                <img src="https://placehold.co/600x300/f3f4f6/64748b?text=Webinar+Sedekah" class="w-full h-48 object-cover" alt="Detail Banner">
+                
+                <!-- Harga & Tombol Daftar (Sticky Bar under Banner or just Block) -->
+                <div class="bg-white p-4 border-b border-gray-100 flex items-center justify-between shadow-sm">
+                    <div>
+                        <p class="text-xs text-gray-500 mb-1">Harga Tiket</p>
+                        <p class="text-lg font-bold text-green-600">Gratis</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <!-- Tombol Scan QR (Dummy) -->
+                        <button class="bg-gray-100 text-gray-700 px-4 py-2 rounded-full font-bold text-sm hover:bg-gray-200 transition-colors shadow-sm flex items-center">
+                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75zM6.75 16.5h.75v.75h-.75v-.75zM16.5 6.75h.75v.75h-.75v-.75zM13.5 13.5h.75v.75h-.75v-.75zM13.5 19.5h.75v.75h-.75v-.75zM19.5 13.5h.75v.75h-.75v-.75zM19.5 19.5h.75v.75h-.75v-.75zM16.5 16.5h.75v.75h-.75v-.75z" />
+                            </svg>
+                            Scan QR
+                        </button>
+                        
+                        <button class="bg-green-600 text-white px-6 py-2 rounded-full font-bold text-sm hover:bg-green-700 transition-colors shadow-md">
+                            Daftar Sekarang
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Informasi Detail -->
+                <div class="p-4 bg-white mb-2">
+                    <h2 class="text-xl font-bold text-gray-800 mb-2 leading-tight">Webinar: Keutamaan Sedekah di Bulan Rajab</h2>
+                    
+                    <div class="space-y-3 mt-4">
+                        <!-- Pemateri -->
+                        <div class="flex items-start">
+                            <div class="w-8 flex-shrink-0 flex justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-green-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500">Pemateri</p>
+                                <p class="text-sm font-medium text-gray-800">Ustadz H. Fulan, Lc. M.A.</p>
+                            </div>
+                        </div>
+
+                        <!-- Tanggal & Waktu -->
+                        <div class="flex items-start">
+                            <div class="w-8 flex-shrink-0 flex justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-green-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500">Waktu Pelaksanaan</p>
+                                <p class="text-sm font-medium text-gray-800">Sabtu, 25 Nov 2025</p>
+                                <p class="text-sm text-gray-600">09.00 - 11.30 WIB</p>
+                            </div>
+                        </div>
+
+                        <!-- Tempat -->
+                        <div class="flex items-start">
+                            <div class="w-8 flex-shrink-0 flex justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-green-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500">Tempat</p>
+                                <p class="text-sm font-medium text-gray-800">Online via Zoom Meeting</p>
+                            </div>
+                        </div>
+
+                        <!-- Kuota -->
+                        <div class="flex items-start">
+                            <div class="w-8 flex-shrink-0 flex justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-green-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500">Kuota Peserta</p>
+                                <p class="text-sm font-medium text-gray-800">Terbatas untuk 500 orang</p>
+                            </div>
+                        </div>
+
+                        <!-- Batas Pendaftaran -->
+                        <div class="flex items-start">
+                            <div class="w-8 flex-shrink-0 flex justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-red-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500">Batas Pendaftaran</p>
+                                <p class="text-sm font-medium text-red-500">Jumat, 24 Nov 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deskripsi -->
+                <div class="p-4 bg-white mt-2 border-t border-gray-100">
+                    <h3 class="font-bold text-gray-800 mb-2">Deskripsi Kegiatan</h3>
+                    <div class="text-sm text-gray-600 leading-relaxed space-y-3">
+                        <p>
+                            Bulan Rajab adalah salah satu bulan haram yang dimuliakan oleh Allah SWT. Di bulan ini, segala amal kebaikan dilipatgandakan pahalanya, termasuk sedekah.
+                        </p>
+                        <p>
+                            Webinar ini akan mengupas tuntas tentang keutamaan, hikmah, dan adab bersedekah di bulan Rajab agar ibadah kita semakin maksimal menyambut bulan suci Ramadhan.
+                        </p>
+                        <p>
+                            Jangan lewatkan kesempatan berharga ini untuk menimba ilmu langsung dari Ustadz H. Fulan, Lc. M.A. Segera daftarkan diri Anda sebelum kuota terpenuhi!
+                        </p>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+        
+        <!-- ========================================= -->
+        <!-- 6. HALAMAN DETAIL BERITA (BARU) -->
+        <!-- ========================================= -->
+        <div x-show="activePage === 'detail_berita'" x-transition.opacity.duration.200ms>
+            <!-- Header Detail Berita -->
+            <header class="sticky top-0 z-40 bg-white border-b border-gray-100 shadow-sm">
+                <div class="flex items-center px-4 py-3">
+                    <button @click="activePage = 'info'; infoTab = 'berita'" class="text-gray-600 mr-4 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                        </svg>
+                    </button>
+                    <h1 class="text-lg font-bold text-gray-800 flex-1">Detail Berita</h1>
+                </div>
+            </header>
+
+            <main>
+                <!-- Banner Berita -->
+                <img src="https://placehold.co/600x300/f3f4f6/64748b?text=Gempa+Cianjur" class="w-full h-48 object-cover" alt="Detail Banner">
+                
+                <!-- Bar Donasi (Hanya untuk Tipe Donasi) -->
+                <div class="bg-white p-4 border-b border-gray-100 flex items-center justify-between shadow-sm">
+                    <div>
+                        <p class="text-xs text-gray-500 mb-1">Target Donasi</p>
+                        <p class="text-lg font-bold text-green-600">Rp 500.000.000</p>
+                    </div>
+                    <button class="bg-orange-500 text-white px-6 py-2 rounded-full font-bold text-sm hover:bg-orange-600 transition-colors shadow-md">
+                        Kirim Bantuan
+                    </button>
+                </div>
+
+                <!-- Informasi Detail Berita -->
+                <div class="p-4 bg-white mb-2">
+                    <h2 class="text-xl font-bold text-gray-800 mb-2 leading-tight">Innalillahi, Gempa Susulan Kembali Mengguncang Cianjur</h2>
+                    
+                    <div class="space-y-3 mt-4">
+                        <!-- Penulis / Sumber -->
+                        <div class="flex items-start">
+                            <div class="w-8 flex-shrink-0 flex justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-green-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500">Penulis / Sumber</p>
+                                <p class="text-sm font-medium text-gray-800">Tim Relawan Big Amal</p>
+                            </div>
+                        </div>
+
+                        <!-- Waktu Kejadian -->
+                        <div class="flex items-start">
+                            <div class="w-8 flex-shrink-0 flex justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-green-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500">Waktu Kejadian</p>
+                                <p class="text-sm font-medium text-gray-800">14:30 WIB</p>
+                            </div>
+                        </div>
+
+                        <!-- Tanggal Kejadian -->
+                        <div class="flex items-start">
+                            <div class="w-8 flex-shrink-0 flex justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-green-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500">Tanggal Kejadian</p>
+                                <p class="text-sm font-medium text-gray-800">Senin, 21 Nov 2025</p>
+                            </div>
+                        </div>
+
+                        <!-- Lokasi Kejadian -->
+                        <div class="flex items-start">
+                            <div class="w-8 flex-shrink-0 flex justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-green-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500">Lokasi Kejadian</p>
+                                <p class="text-sm font-medium text-gray-800">Desa Cijedil, Kec. Cugenang</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Estimasi Penerima Manfaat -->
+                        <div class="flex items-start">
+                            <div class="w-8 flex-shrink-0 flex justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-green-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500">Estimasi Penerima Manfaat</p>
+                                <p class="text-sm font-medium text-gray-800">500 Jiwa</p>
+                            </div>
+                        </div>
+
+                        <!-- Batas Waktu Donasi -->
+                        <div class="flex items-start">
+                            <div class="w-8 flex-shrink-0 flex justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-red-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500">Batas Waktu Donasi</p>
+                                <p class="text-sm font-medium text-red-500">30 Nov 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Isi Berita -->
+                <div class="p-4 bg-white mt-2 border-t border-gray-100">
+                    <h3 class="font-bold text-gray-800 mb-2">Isi Berita</h3>
+                    <div class="text-sm text-gray-600 leading-relaxed space-y-3">
+                        <p>
+                            Gempa bumi susulan kembali mengguncang wilayah Cianjur pada Senin (21/11) pukul 14.30 WIB. Getaran dirasakan cukup kuat oleh warga di Desa Cijedil, Kecamatan Cugenang, yang merupakan salah satu titik terparah pada gempa utama sebelumnya.
+                        </p>
+                        <p>
+                            Berdasarkan laporan tim relawan Big Amal di lapangan, kepanikan sempat terjadi. Warga berhamburan keluar dari tenda pengungsian maupun bangunan semi permanen yang masih berdiri.
+                        </p>
+                        <p>
+                            Saat ini, kebutuhan mendesak para pengungsi meliputi makanan siap saji, air bersih, selimut, dan obat-obatan. Tim kami sedang berupaya mendistribusikan bantuan tahap awal dan mendata kerusakan tambahan akibat gempa susulan ini.
+                        </p>
+                        <p>
+                            Kami mengajak seluruh #OrangBaik untuk kembali mengulurkan tangan, membantu saudara-saudara kita yang tertimpa musibah. Bantuan Anda sangat berarti untuk meringankan beban mereka di tengah masa pemulihan yang berat ini.
+                        </p>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+
+        <!-- 3. FOOTER NAVIGATION (Fixed Bottom) -->
+        <nav class="fixed bottom-0 w-full max-w-[480px] bg-white border-t border-gray-200 flex justify-between px-2 py-2 z-50 text-[10px]">
+            
+            <!-- Home -->
+            <button @click="activePage = 'home'" class="flex-1 flex flex-col items-center justify-center focus:outline-none group" :class="activePage === 'home' ? 'text-green-600' : 'text-gray-400 hover:text-green-600'">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mb-1 group-hover:text-green-600 transition-colors" :class="activePage === 'home' ? 'stroke-2' : ''">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                </svg>
+                <span>Home</span>
+            </button>
+            
+            <!-- Info (Tab yang bermasalah sebelumnya) -->
+            <button @click="activePage = 'info'" class="flex-1 flex flex-col items-center justify-center focus:outline-none group" :class="activePage === 'info' ? 'text-green-600' : 'text-gray-400 hover:text-green-600'">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mb-1 group-hover:text-green-600 transition-colors" :class="activePage === 'info' ? 'stroke-2' : ''">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                </svg>
+                <span class="font-semibold">Info</span>
+            </button>
+
+            <!-- Aktual -->
+            <button @click="activePage = 'aktual'" class="flex-1 flex flex-col items-center justify-center focus:outline-none group" :class="activePage === 'aktual' ? 'text-green-600' : 'text-gray-400 hover:text-green-600'">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mb-1 group-hover:text-green-600 transition-colors">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
+                </svg>
+                <span>Aktual</span>
+            </button>
+
+            <!-- Amal -->
+            <button @click="activePage = 'amal'" class="flex-1 flex flex-col items-center justify-center focus:outline-none group" :class="activePage === 'amal' ? 'text-green-600' : 'text-gray-400 hover:text-green-600'">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mb-1 group-hover:text-green-600 transition-colors" :class="activePage === 'amal' ? 'fill-current' : ''">
+                    <!-- Ikon 'Amal' fill-current jika aktif -->
+                    <path :class="activePage === 'amal' ? '' : 'hidden'" d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.75 3c1.995 0 3.804 1.005 4.897 2.553C13.804 4.005 15.613 3 17.608 3c3.036 0 5.5 2.322 5.5 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.748 0l-.003-.001z" />
+                    <!-- Ikon 'Amal' outline jika tidak aktif -->
+                    <path :class="activePage === 'amal' ? 'hidden' : ''" stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                </svg>
+                <span class="font-semibold">Amal</span>
+            </button>
+
+            <!-- Akun -->
+            <button @click="activePage = 'akun'" class="flex-1 flex flex-col items-center justify-center focus:outline-none group" :class="activePage === 'akun' ? 'text-green-600' : 'text-gray-400 hover:text-green-600'">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mb-1 group-hover:text-green-600 transition-colors" :class="activePage === 'akun' ? 'stroke-2' : ''">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                </svg>
+                <span>Akun</span>
+            </button>
+
+        </nav>
+
+    </div>
+
+    <!-- Memuat Alpine.js di akhir body (Cara paling stabil) -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+</body>
+</html>
