@@ -54,7 +54,6 @@
         ></div>
 
         <!-- Sidebar -->
-        <!-- Logic: Fixed position di mobile, Static di desktop. Transform translate untuk animasi slide. -->
         <aside 
             :class="isSidebarOpen ? 'translate-x-0' : '-translate-x-full'"
             class="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition-transform duration-300 transform md:translate-x-0 md:static md:inset-0 flex-shrink-0" 
@@ -114,8 +113,7 @@
                 <!-- AREA KANAN HEADER -->
                 <div class="flex items-center space-x-2 md:space-x-4">
                     <!-- TOMBOL LIHAT HALAMAN PUBLIK -->
-                    <!-- Teks 'Lihat Halaman Donasi' disembunyikan di mobile agar muat -->
-                    <a href="public_donasi.html" class="inline-flex items-center px-3 py-2 md:px-4 md:py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 shadow-sm transition-colors">
+                    <a href="public_donasi.html" target="_blank" class="inline-flex items-center px-3 py-2 md:px-4 md:py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 shadow-sm transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="md:mr-2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                         <span class="hidden md:inline">Lihat Halaman Donasi</span>
                     </a>
@@ -139,9 +137,21 @@
                     <div class="bg-white p-4 md:p-6 rounded-lg shadow-md border border-gray-200">
                         <h4 class="font-semibold text-lg text-gray-800 mb-4">Filter Data</h4>
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                            <div><label class="block text-sm font-medium text-gray-700">Tanggal Mulai</label><input type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
-                            <div><label class="block text-sm font-medium text-gray-700">Tanggal Selesai</label><input type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
-                            <div><label class="block text-sm font-medium text-gray-700">Lembaga</label><select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"><option>Semua Lembaga</option><option>Lembaga Zakat A</option></select></div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Tanggal Mulai</label>
+                                <input type="date" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Tanggal Selesai</label>
+                                <input type="date" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Lembaga</label>
+                                <select class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                                    <option>Semua Lembaga</option>
+                                    <option>Lembaga Zakat A</option>
+                                </select>
+                            </div>
                             <div class="md:self-end"><button type="button" class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700">Filter</button></div>
                         </div>
                     </div>
@@ -234,7 +244,36 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <!-- Tambahan dummy -->
+                                    <tr>
+                                        <td class="px-6 py-4 text-sm font-medium text-gray-900">2</td>
+                                        <td class="px-6 py-4 text-sm text-gray-700">Air Bersih untuk NTT</td>
+                                        <td class="px-6 py-4 text-sm text-gray-700"><img class="h-10 w-16 object-cover rounded" src="https://placehold.co/100x60/57d100/FFFFFF?text=Gambar" alt="Gambar Kegiatan"></td>
+                                        <td class="px-6 py-4 text-sm text-gray-700">15 Nov 2025</td>
+                                        <td class="px-6 py-4 text-sm font-medium">
+                                            <div class="flex space-x-2">
+                                                <!-- Buttons -->
+                                                <a href="#" class="text-blue-600"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></a>
+                                                <a href="#" class="text-green-600"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></a>
+                                                <a href="#" class="text-yellow-500"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a>
+                                                <a href="#" class="text-red-600"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 text-sm font-medium text-gray-900">3</td>
+                                        <td class="px-6 py-4 text-sm text-gray-700">Sedekah Jumat Berkah</td>
+                                        <td class="px-6 py-4 text-sm text-gray-700"><img class="h-10 w-16 object-cover rounded" src="https://placehold.co/100x60/57d100/FFFFFF?text=Gambar" alt="Gambar"></td>
+                                        <td class="px-6 py-4 text-sm text-gray-700">20 Okt 2025</td>
+                                        <td class="px-6 py-4 text-sm font-medium">
+                                            <div class="flex space-x-2">
+                                                <!-- Buttons -->
+                                                <a href="#" class="text-blue-600"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></a>
+                                                <a href="#" class="text-green-600"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></a>
+                                                <a href="#" class="text-yellow-500"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a>
+                                                <a href="#" class="text-red-600"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -255,7 +294,7 @@
                     <div class="bg-white p-4 md:p-6 rounded-lg shadow-md border border-gray-200">
                         <form action="#" method="POST">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <!-- Publikasi Kegiatan (BARU) -->
+                                <!-- Publikasi Kegiatan -->
                                 <div class="md:col-span-2">
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Publikasi Kegiatan</label>
                                     <div class="flex flex-wrap gap-4">
@@ -270,10 +309,10 @@
                                     </div>
                                 </div>
                                 
-                                <!-- Target Grup (Conditional - BARU) -->
+                                <!-- Target Grup (Conditional) -->
                                 <div x-show="publicationType === 'khusus'" class="md:col-span-2" style="display: none;">
                                     <label for="target_grup" class="block text-sm font-medium text-gray-700">Target Grup</label>
-                                    <select id="target_grup" name="target_grup" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" multiple>
+                                    <select id="target_grup" name="target_grup" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" multiple>
                                         <option>Grup Relawan Bandung</option>
                                         <option>Grup Donatur Tetap</option>
                                         <option>Grup Kajian Muslimah</option>
@@ -282,24 +321,24 @@
                                 </div>
 
                                 <!-- Nama Kegiatan -->
-                                <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">Nama Kegiatan</label><input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
-                                <div><label class="block text-sm font-medium text-gray-700">Waktu Kegiatan</label><input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
-                                <div><label class="block text-sm font-medium text-gray-700">Tanggal Pelaksanaan</label><input type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
-                                <div><label class="block text-sm font-medium text-gray-700">Pembicara Utama</label><input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
-                                <div><label class="block text-sm font-medium text-gray-700">Batas Pendaftaran</label><input type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
+                                <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">Nama Kegiatan</label><input type="text" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
+                                <div><label class="block text-sm font-medium text-gray-700">Waktu Kegiatan</label><input type="text" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
+                                <div><label class="block text-sm font-medium text-gray-700">Tanggal Pelaksanaan</label><input type="date" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
+                                <div><label class="block text-sm font-medium text-gray-700">Pembicara Utama</label><input type="text" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
+                                <div><label class="block text-sm font-medium text-gray-700">Batas Pendaftaran</label><input type="date" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
                                 <div class="md:col-span-2">
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Tiket Kegiatan</label>
                                     <div class="flex items-center space-x-4">
                                         <div class="flex items-center"><input @click="isPaidEvent = false" id="tiket_gratis" name="tiket" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" checked><label for="tiket_gratis" class="ml-2 block text-sm text-gray-700">Gratis</label></div>
-                                        <div class="flex items-center"><input @click="isPaidEvent = true" id="tiket_berbayar" name="tiket" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"><label for="tiket_berbayar" class="ml-2 block text-sm text-gray-700">Berbayar</label></div>
+                                        <div class="flex items-center"><input @click="isPaidEvent = true" id="tiket_berbayar" name="tiket" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 cursor-not-allowed" disabled><label for="tiket_berbayar" class="ml-2 block text-sm text-gray-400 cursor-not-allowed">Berbayar</label></div>
                                     </div>
                                 </div>
-                                <div x-show="isPaidEvent" class="md:col-span-2" style="display: none;"><label class="block text-sm font-medium text-gray-700">Harga Tiket (Rp)</label><input type="number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
-                                <div><label class="block text-sm font-medium text-gray-700">Kuota Peserta</label><input type="number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
-                                <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">Lokasi Kegiatan</label><input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
-                                <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">Deskripsi Kegiatan</label><textarea rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea></div>
-                                <div><label class="block text-sm font-medium text-gray-700">Latitude</label><input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
-                                <div><label class="block text-sm font-medium text-gray-700">Longitude</label><input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
+                                <div x-show="isPaidEvent" class="md:col-span-2" style="display: none;"><label class="block text-sm font-medium text-gray-700">Harga Tiket (Rp)</label><input type="number" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
+                                <div><label class="block text-sm font-medium text-gray-700">Kuota Peserta</label><input type="number" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
+                                <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">Lokasi Kegiatan</label><input type="text" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
+                                <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">Deskripsi Kegiatan</label><textarea rows="4" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></textarea></div>
+                                <div><label class="block text-sm font-medium text-gray-700">Latitude</label><input type="text" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
+                                <div><label class="block text-sm font-medium text-gray-700">Longitude</label><input type="text" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
                             </div>
                             <div class="mt-6 flex justify-end"><button type="submit" class="inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700">Simpan Kegiatan</button></div>
                         </form>
@@ -337,6 +376,7 @@
                 <div x-show="currentPage === 'berita'">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-2xl font-semibold text-gray-800">List Berita</h3>
+                        <!-- BUTTON DIPERBARUI: Mengarah ke 'tambah_berita' -->
                         <button @click.prevent="currentPage = 'tambah_berita'" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-2 -ml-1"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                             <span class="hidden md:inline">Tambah Berita</span>
@@ -390,7 +430,7 @@
                                 <!-- Target Grup Berita (Conditional) -->
                                 <div x-show="newsPublicationType === 'khusus'" class="md:col-span-2" style="display: none;">
                                     <label for="target_grup_berita" class="block text-sm font-medium text-gray-700">Target Grup</label>
-                                    <select id="target_grup_berita" name="target_grup_berita" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" multiple>
+                                    <select id="target_grup_berita" name="target_grup_berita" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" multiple>
                                         <option>Grup Relawan Bandung</option>
                                         <option>Grup Donatur Tetap</option>
                                         <option>Grup Kajian Muslimah</option>
@@ -399,33 +439,33 @@
                                 </div>
 
                                 <!-- Judul Berita -->
-                                <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">Judul Berita</label><input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
+                                <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">Judul Berita</label><input type="text" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
                                 
-                                <div><label class="block text-sm font-medium text-gray-700">Waktu Kejadian</label><input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Contoh: 09:00 WIB"></div>
-                                <div><label class="block text-sm font-medium text-gray-700">Tanggal Kejadian</label><input type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
+                                <div><label class="block text-sm font-medium text-gray-700">Waktu Berita</label><input type="text" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" placeholder="Contoh: 09:00 WIB"></div>
+                                <div><label class="block text-sm font-medium text-gray-700">Tanggal Berita</label><input type="date" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
                                 
-                                <div><label class="block text-sm font-medium text-gray-700">Penulis / Sumber</label><input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
-                                <div><label class="block text-sm font-medium text-gray-700">Batas Waktu (untuk Tipe Donasi)</label><input type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
+                                <div><label class="block text-sm font-medium text-gray-700">Penulis / Sumber</label><input type="text" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
+                                <div><label class="block text-sm font-medium text-gray-700">Batas Waktu (untuk Tipe Donasi)</label><input type="date" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
                                 
                                 <!-- Tipe Berita (Radio) -->
                                 <div class="md:col-span-2">
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Tipe Berita</label>
                                     <div class="flex items-center space-x-4">
                                         <div class="flex items-center"><input @click="isDonationNews = false" id="tipe_info" name="tipe_berita" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" checked><label for="tipe_info" class="ml-2 block text-sm text-gray-700">Informasi</label></div>
-                                        <div class="flex items-center"><input @click="isDonationNews = true" id="tipe_donasi" name="tipe_berita" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"><label for="tipe_donasi" class="ml-2 block text-sm text-gray-700">Donasi (Berita Duka/Bencana)</label></div>
+                                        <div class="flex items-center"><input @click="isDonationNews = true" id="tipe_donasi" name="tipe_berita" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 cursor-not-allowed" disabled><label for="tipe_donasi" class="ml-2 block text-sm text-gray-400 cursor-not-allowed">Donasi (Berita Duka/Bencana)</label></div>
                                     </div>
                                 </div>
                                 
                                 <!-- Target Donasi (Conditional) -->
-                                <div x-show="isDonationNews" class="md:col-span-2" style="display: none;"><label class="block text-sm font-medium text-gray-700">Target Donasi (Rp)</label><input type="number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="0"></div>
+                                <div x-show="isDonationNews" class="md:col-span-2" style="display: none;"><label class="block text-sm font-medium text-gray-700">Target Donasi (Rp)</label><input type="number" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" placeholder="0"></div>
                                 
-                                <div><label class="block text-sm font-medium text-gray-700">Estimasi Penerima Manfaat (Optional)</label><input type="number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Jumlah orang"></div>
+                                <div><label class="block text-sm font-medium text-gray-700">Estimasi Penerima Manfaat (Optional)</label><input type="number" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" placeholder="Jumlah orang"></div>
                                 
-                                <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">Lokasi Kejadian</label><input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
-                                <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">Isi Berita</label><textarea rows="6" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea></div>
+                                <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">Lokasi Berita</label><input type="text" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
+                                <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">Isi Berita</label><textarea rows="6" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></textarea></div>
                                 
-                                <div><label class="block text-sm font-medium text-gray-700">Latitude</label><input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
-                                <div><label class="block text-sm font-medium text-gray-700">Longitude</label><input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
+                                <div><label class="block text-sm font-medium text-gray-700">Latitude</label><input type="text" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
+                                <div><label class="block text-sm font-medium text-gray-700">Longitude</label><input type="text" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
                             </div>
                             <div class="mt-6 flex justify-end"><button type="submit" class="inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700">Simpan Berita</button></div>
                         </form>
@@ -476,12 +516,12 @@
                     <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
                         <form action="#" method="POST">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">Nama Grup</label><input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
-                                <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">Deskripsi</label><textarea rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea></div>
-                                <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">Alamat</label><textarea rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea></div>
-                                <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">No. Kontak PIC</label><input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
-                                <div><label class="block text-sm font-medium text-gray-700">Latitude</label><input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
-                                <div><label class="block text-sm font-medium text-gray-700">Longitude</label><input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></div>
+                                <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">Nama Grup</label><input type="text" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
+                                <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">Deskripsi</label><textarea rows="3" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></textarea></div>
+                                <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">Alamat</label><textarea rows="2" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></textarea></div>
+                                <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700">No. Kontak PIC</label><input type="text" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
+                                <div><label class="block text-sm font-medium text-gray-700">Latitude</label><input type="text" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
+                                <div><label class="block text-sm font-medium text-gray-700">Longitude</label><input type="text" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></div>
                             </div>
                             <div class="mt-6 flex justify-end"><button type="submit" class="inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700">Simpan Grup</button></div>
                         </form>
@@ -518,7 +558,7 @@
                 <div @click.outside="isAnggotaModalOpen = false" class="bg-white rounded-lg shadow-xl w-full max-w-lg mx-4">
                     <div class="flex justify-between items-center p-4 border-b"><h5 class="text-lg font-semibold">Tambah Anggota</h5><button @click="isAnggotaModalOpen = false" class="text-gray-400"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></div>
                     <div class="p-6">
-                        <label class="block text-sm font-medium text-gray-700">Cari Nama Anggota</label><input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Ketik nama...">
+                        <label class="block text-sm font-medium text-gray-700">Cari Nama Anggota</label><input type="text" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" placeholder="Ketik nama...">
                         <div class="mt-4 border rounded-md max-h-60 overflow-y-auto divide-y divide-gray-200">
                             <div class="flex justify-between items-center p-3 hover:bg-gray-50"><div><p class="font-medium">Siti Aminah</p><p class="text-sm text-gray-500">siti.aminah@example.com</p></div><button class="p-2 rounded-full text-green-600 hover:bg-green-100"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button></div>
                         </div>
@@ -544,4 +584,3 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
 </body>
 </html>
-
