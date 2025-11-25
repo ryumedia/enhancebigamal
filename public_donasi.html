@@ -248,11 +248,11 @@
                                 <div class="text-right"><p class="text-xs text-gray-400">Terkumpul dari donasi darurat</p></div>
                             </div>
                             
-                            <!-- Tombol Donasi (DIBUAT AKTIF) -->
+                            <!-- Tombol Donasi (UPDATED TEXT) -->
                             <button 
                                 @click="activePage = 'detail_berita'"
                                 class="w-full bg-orange-500 text-white py-2 rounded-md text-sm font-bold shadow-sm hover:bg-orange-600 transition-colors">
-                                Kirim Bantuan Darurat
+                                Lihat Berita Selengkapnya
                             </button>
                         </div>
                     </div>
@@ -291,9 +291,11 @@
                                 Alhamdulillah, amanah donatur telah kami salurkan berupa 500 paket sembako dan perlengkapan bayi untuk pengungsi di posko utama...
                             </p>
                             
-                            <!-- Tombol Baca Selengkapnya (Bukan Donasi) -->
-                            <button class="w-full border border-blue-600 text-blue-600 py-2 rounded-md text-sm font-bold hover:bg-blue-50 transition-colors">
-                                Baca Laporan Lengkap
+                            <!-- Tombol Baca Selengkapnya (UPDATED TEXT & ACTION) -->
+                            <button 
+                                @click="activePage = 'detail_berita'"
+                                class="w-full border border-blue-600 text-blue-600 py-2 rounded-md text-sm font-bold hover:bg-blue-50 transition-colors">
+                                Lihat Berita Selengkapnya
                             </button>
                         </div>
                     </div>
@@ -469,34 +471,12 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                         </svg>
                     </button>
-                    <h1 class="text-lg font-bold text-gray-800 flex-1">Grup Kebaikan</h1>
+                    <h1 class="text-lg font-bold text-gray-800 flex-1">Daftar Grup Anda</h1>
                 </div>
             </header>
 
             <main class="p-4">
                 
-                <!-- Status Keanggotaan -->
-                <div class="bg-green-50 border border-green-100 rounded-lg p-3 mb-4">
-                    <p class="text-sm text-green-800 font-medium">Status Keanggotaan:</p>
-                    <p class="text-xs text-green-600 mt-1">Anda Tegabung dalam Grup Masjid Al Ikhlas</p>
-                </div>
-
-                <!-- Filter -->
-                <div class="flex space-x-3 mb-6">
-                    <button 
-                        @click="grupFilter = 'terdekat'"
-                        class="flex-1 py-2 px-4 rounded-full text-sm font-medium border transition-colors focus:outline-none"
-                        :class="grupFilter === 'terdekat' ? 'bg-green-600 text-white border-green-600' : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-50'">
-                        Terdekat
-                    </button>
-                    <button 
-                        @click="grupFilter = 'terbaru'"
-                        class="flex-1 py-2 px-4 rounded-full text-sm font-medium border transition-colors focus:outline-none"
-                        :class="grupFilter === 'terbaru' ? 'bg-green-600 text-white border-green-600' : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-50'">
-                        Terbaru
-                    </button>
-                </div>
-
                 <!-- List Grup -->
                 <div class="space-y-3">
                     
@@ -516,7 +496,6 @@
                         </div>
                         <div class="flex flex-col items-end justify-center ml-2">
                             <span class="text-xs font-bold text-gray-600 bg-gray-100 px-2 py-1 rounded-full mb-1">120 Anggota</span>
-                            <button class="text-green-600 text-xs font-semibold border border-green-600 rounded px-2 py-1 hover:bg-green-50">Kontak Admin</button>
                         </div>
                     </div>
 
@@ -536,7 +515,6 @@
                         </div>
                         <div class="flex flex-col items-end justify-center ml-2">
                             <span class="text-xs font-bold text-gray-600 bg-gray-100 px-2 py-1 rounded-full mb-1">45 Anggota</span>
-                            <button class="text-green-600 text-xs font-semibold border border-green-600 rounded px-2 py-1 hover:bg-green-50">Kontak Admin</button>
                         </div>
                     </div>
 
@@ -556,7 +534,6 @@
                         </div>
                         <div class="flex flex-col items-end justify-center ml-2">
                             <span class="text-xs font-bold text-gray-600 bg-gray-100 px-2 py-1 rounded-full mb-1">500 Anggota</span>
-                            <button class="text-green-600 text-xs font-semibold border border-green-600 rounded px-2 py-1 hover:bg-green-50">Kontak Admin</button>
                         </div>
                     </div>
 
@@ -719,17 +696,6 @@
                 <!-- Banner Berita -->
                 <img src="https://placehold.co/600x300/f3f4f6/64748b?text=Gempa+Cianjur" class="w-full h-48 object-cover" alt="Detail Banner">
                 
-                <!-- Bar Donasi (Hanya untuk Tipe Donasi) -->
-                <div class="bg-white p-4 border-b border-gray-100 flex items-center justify-between shadow-sm">
-                    <div>
-                        <p class="text-xs text-gray-500 mb-1">Target Donasi</p>
-                        <p class="text-lg font-bold text-green-600">Rp 500.000.000</p>
-                    </div>
-                    <button class="bg-orange-500 text-white px-6 py-2 rounded-full font-bold text-sm hover:bg-orange-600 transition-colors shadow-md">
-                        Kirim Bantuan
-                    </button>
-                </div>
-
                 <!-- Informasi Detail Berita -->
                 <div class="p-4 bg-white mb-2">
                     <h2 class="text-xl font-bold text-gray-800 mb-2 leading-tight">Innalillahi, Gempa Susulan Kembali Mengguncang Cianjur</h2>
@@ -801,18 +767,6 @@
                             </div>
                         </div>
 
-                        <!-- Batas Waktu Donasi -->
-                        <div class="flex items-start">
-                            <div class="w-8 flex-shrink-0 flex justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-red-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="text-xs text-gray-500">Batas Waktu Donasi</p>
-                                <p class="text-sm font-medium text-red-500">30 Nov 2025</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
